@@ -55,13 +55,13 @@ const firebaseConfig = {
 
   export const db = getFirestore();
 
-  export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) =>{
+  export const addCollectionAndDocuments = async (collectionKey, objectsToAdd, field) =>{
   
     const collectionRef = collection(db,collectionKey);
     const batch = writeBatch(db);
 
     objectsToAdd.forEach((object) =>{
-      const docRef = doc(collectionRef, object.title.toLowerCase());
+      const docRef = doc(collectionRef, object[field].toLowerCase());
       batch.set(docRef, object);
     });
 
@@ -75,11 +75,10 @@ const firebaseConfig = {
 
     const querySnapshot = await getDocs(q);
     const categoryMap = querySnapshot.docs.reduce((acc,docSnapshot)=>{
-      const {title, item} = docSnapshot.data();
-      acc[title.toLowerCase()] = item;
+      const {title, items} = docSnapshot.data();
+      acc[title.toLowerCase()] = items;
       return acc;
     }, {})
-
     return categoryMap;
   }
 
