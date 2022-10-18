@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
-import { signInWithGooglePopup, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
-import Button from "../button/button.component";
+import {useState } from "react";
+import { signInWithGooglePopup, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 import './sign-in-form.styles.scss';
 import FormInput from "../form-input/form-input.component";
-import { UserContext } from "../../contexts/user.context";
+import Button, {BUTTON_TYPE_CLASSES} from '../button/button.component';
+
 
 const defaultFormFields = {
     email: '',
@@ -65,7 +65,7 @@ const resetFormFields = () =>{
 
                 <div className="buttons-container">
                     <Button type="submit">Sign In</Button>
-                    <Button type='button' buttonType="google" onClick={signInWithGoogle}>Google Sign In</Button>
+                    <Button type='button' buttonType={BUTTON_TYPE_CLASSES.google} onClick={signInWithGoogle}>Google Sign In</Button>
                 </div>
                 
             </form>
